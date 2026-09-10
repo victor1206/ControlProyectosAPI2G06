@@ -23,7 +23,7 @@ public class Tarea {
     private String duracion;
 
     @Enumerated(EnumType.STRING)
-    private String estado;
+    private Status estado;
 
     @ManyToOne
     @JoinColumn(name = "proyecto_id")
