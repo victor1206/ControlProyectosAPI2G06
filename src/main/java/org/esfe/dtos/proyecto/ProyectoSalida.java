@@ -2,6 +2,7 @@ package org.esfe.dtos.proyecto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.esfe.dtos.categoria.CategoriaSalida;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,5 +15,5 @@ public class ProyectoSalida implements Serializable {
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private Integer categoriaId;
+    private CategoriaSalida categoria;
 }
