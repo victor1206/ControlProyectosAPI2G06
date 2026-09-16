@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class TareaSalida implements Serializable {
     private Integer id;
     private String nombre;
-    private String decripcion;
+    private String descripcion;
     private String duracion;
     private ProyectoSalida proyecto;
 }

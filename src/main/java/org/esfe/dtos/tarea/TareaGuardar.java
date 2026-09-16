@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Setter
 public class TareaGuardar implements Serializable {
     private String nombre;
-    private String decripcion;
+    private String descripcion;
     private String duracion;
     private Integer proyectoId;
 }
