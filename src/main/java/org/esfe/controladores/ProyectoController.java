@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ProyectoController {
     @Autowired
     private IProyectoService proyectoService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<Page<ProyectoSalida>> mostrarTodosPaginados(Pageable pageable)
     {
@@ -29,6 +31,7 @@ public class ProyectoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/lista")
     public ResponseEntity<List<ProyectoSalida>> mostrarTodos()
     {
@@ -40,6 +43,7 @@ public class ProyectoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<ProyectoSalida> mostrarPorId(@PathVariable Integer id) {
         ProyectoSalida proyecto = proyectoService.obtenerPorId(id);
@@ -50,6 +54,7 @@ public class ProyectoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ProyectoSalida> crear(@RequestBody ProyectoGuardar proyectoGuardar)
     {
@@ -61,6 +66,7 @@ public class ProyectoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ProyectoSalida> editar(@PathVariable Integer id,
                                                  @RequestBody ProyectoModificar proyectoModificar)
@@ -73,6 +79,7 @@ public class ProyectoController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity eliminar(@PathVariable Integer id)
     {

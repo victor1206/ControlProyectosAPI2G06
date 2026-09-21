@@ -1,8 +1,5 @@
 package org.esfe.controladores;
 
-import org.esfe.dtos.proyecto.ProyectoGuardar;
-import org.esfe.dtos.proyecto.ProyectoModificar;
-import org.esfe.dtos.proyecto.ProyectoSalida;
 import org.esfe.dtos.tarea.TareaCambiarEstado;
 import org.esfe.dtos.tarea.TareaGuardar;
 import org.esfe.dtos.tarea.TareaModificar;
@@ -12,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +20,7 @@ public class TareaController {
     @Autowired
     private ITareaService tareaService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public ResponseEntity<Page<TareaSalida>> mostrarTodosPaginados(Pageable pageable)
     {
@@ -33,6 +32,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/lista")
     public ResponseEntity<List<TareaSalida>> mostrarTodos()
     {
@@ -44,6 +44,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<TareaSalida> mostrarPorId(@PathVariable Integer id) {
         TareaSalida tarea = tareaService.obtenerPorId(id);
@@ -54,6 +55,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/proyecto/{id}")
     public ResponseEntity<List<TareaSalida>> mostrarPorProyecto(@PathVariable Integer id)
     {
@@ -65,6 +67,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TareaSalida> crear(@RequestBody TareaGuardar tareaGuardar)
     {
@@ -76,6 +79,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<TareaSalida> editar(@PathVariable Integer id,
                                                  @RequestBody TareaModificar tareaModificar)
@@ -88,6 +92,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PatchMapping
     public ResponseEntity<TareaSalida> cambiarEstado(
             @RequestBody TareaCambiarEstado tareaCambiarEstado)
@@ -100,6 +105,7 @@ public class TareaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity eliminar(@PathVariable Integer id)
     {
